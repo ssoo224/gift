@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>أحبك روز</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      height: 100vh;
+    }
+
+    #calculator {
+      width: 400px;
+      padding: 20px;
+      margin: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+    }
+
+    #calculator-form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #calculator-input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    #calculator-button {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: none;
+      background-color: #007bff;
+      color: #fff;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #calculator-result {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #efefef;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div id="calculator">
+      <h1>أحبك، روز!</h1> <!-- إضافة أحبك، روز -->
+      <p>أجب عن الأسئلة التالية وسنخبرك بنسبة الأنوثة لديك.</p>
+      <form id="calculator-form">
+        <label for="question1">هل تحبين ارتداء الفساتين والتنانير؟</label>
+        <select id="question1" name="question1">
+          <option value="نعم">نعم</option>
+          <option value="أحيانًا">أحيانًا</option>
+          <option value="لا">لا</option>
+        </select>
+
+        <label for="question2">هل تجدين نفسك منجذبة إلى الرجال؟</label>
+        <select id="question2" name="question2">
+          <option value="نعم">نعم</option>
+          <option value="أحيانًا">أحيانًا</option>
+          <option value="لا">لا</option>
+        </select>
+
+        <label for="question3">هل تشعرين أنك حساسة وعاطفية؟</label>
+        <select id="question3" name="question3">
+          <option value="نعم">نعم</option>
+          <option value="أحيانًا">أحيانًا</option>
+          <option value="لا">لا</option>
+        </select>
+
+        <button type="submit" id="calculator-button">احسبي نتيجتي</button>
+      </form>
+      <div id="calculator-result"></div>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('calculator-form');
+    const result = document.getElementById('calculator-result');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const question1 = document.getElementById('question1').value;
+      const question2 = document.getElementById('question2').value;
+      const question3 = document.getElementById('question3').value;
+
+      let femininityScore = 0;
+
+      if (question1 === 'نعم') {
+        femininityScore += 3;
+      } else if (question1 === 'أحيانًا') {
+        femininityScore += 1;
+      }
+
+      if (question2 === 'نعم') {
+        femininityScore += 3;
+      } else if (question2 === 'أحيانًا') {
+        femininityScore += 1;
+      }
+
+      if (question3 === 'نعم') {
+        femininityScore += 3;
+      } else if (question3 === 'أحيانًا') {
+        femininityScore += 1;
+      }
+
+      let femininityPercentage = (femininityScore / 9) * 100;
+
+      result.innerHTML = نسبة الأنوثة لديك هي: ${femininityPercentage}%;
+    });
+  </script>
+</body>
+</html>
