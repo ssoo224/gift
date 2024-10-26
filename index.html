@@ -1,105 +1,93 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لعبة السيارات</title>
+    <title>هدية علوش</title>
     <style>
         body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            text-align: center;
             margin: 0;
-            overflow: hidden;
+            flex-direction: column;
         }
-        canvas {
-            display: block;
-            background-color: #f0f0f0;
-            margin: 0 auto;
-            border: 2px solid black;
+        .container {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+        h2 {
+            color: #ff5e78;
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 12px 25px;
+            font-size: 20px;
+            cursor: pointer;
+            border: none;
+            border-radius: 50px;
+            background: linear-gradient(45deg, #ff7e5f, #feb47b);
+            color: #fff;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+        .gift {
+            font-size: 50px;
+            font-weight: bold;
+            color: #ff5e78;
+        }
+        .back-button {
+            font-size: 18px;
+            background: linear-gradient(45deg, #42e695, #3bb2b8);
+            color: #fff;
+            padding: 8px 15px;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            margin-top: 25px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .back-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
         }
     </style>
 </head>
 <body>
 
-<canvas id="gameCanvas"></canvas>
+<div class="container" id="container">
+    <h2>شوف هديتك من علوش</h2>
+    <button onclick="showGift()">اضغط هنا</button>
+</div>
 
 <script>
-    const canvas = document.getElementById('gameCanvas');
-    const ctx = canvas.getContext('2d');
-    
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    function showGift() {
+        const gifts = [
+            { name: "نعال", icon: "👡" },
+            { name: "أكل", icon: "🍔" },
+            { name: "حب", icon: "❤️" },
+            { name: "إخوان", icon: "👬" }
+        ];
 
-    const carWidth = 50;
-    const carHeight = 100;
-    let carX = canvas.width / 2 - carWidth / 2;
-    let carY = canvas.height - carHeight - 30;
-    const carSpeed = 5;
-    
-    const obstacles = [];
-    const obstacleWidth = 50;
-    const obstacleHeight = 100;
-    const obstacleSpeed = 3;
-
-    let isGameOver = false;
-
-    function drawCar() {
-        ctx.fillStyle = 'blue';
-        ctx.fillRect(carX, carY, carWidth, carHeight);
+        const randomGift = gifts[Math.floor(Math.random() * gifts.length)];
+        
+        // إفراغ الصفحة وعرض الهدية فقط مع زر العودة
+        document.body.innerHTML = `
+            <div class="gift">${randomGift.icon} ${randomGift.name}</div>
+            <button class="back-button" onclick="location.reload()">الرجوع إلى البداية</button>
+        `;
     }
-
-    function drawObstacles() {
-        ctx.fillStyle = 'red';
-        obstacles.forEach(obstacle => {
-            ctx.fillRect(obstacle.x, obstacle.y, obstacleWidth, obstacleHeight);
-            obstacle.y += obstacleSpeed;
-        });
-    }
-
-    function generateObstacles() {
-        const obstacleX = Math.random() * (canvas.width - obstacleWidth);
-        obstacles.push({ x: obstacleX, y: -obstacleHeight });
-    }
-
-    function checkCollision() {
-        obstacles.forEach(obstacle => {
-            if (
-                carX < obstacle.x + obstacleWidth &&
-                carX + carWidth > obstacle.x &&
-                carY < obstacle.y + obstacleHeight &&
-                carY + carHeight > obstacle.y
-            ) {
-                isGameOver = true;
-            }
-        });
-    }
-
-    function update() {
-        if (isGameOver) {
-            ctx.fillStyle = 'black';
-            ctx.font = '48px Arial';
-            ctx.fillText('Game Over!', canvas.width / 2 - 100, canvas.height / 2);
-            return;
-        }
-
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        drawCar();
-        drawObstacles();
-        checkCollision();
-
-        requestAnimationFrame(update);
-    }
-
-    document.addEventListener('keydown', function (event) {
-        if (event.key === 'ArrowLeft' && carX > 0) {
-            carX -= carSpeed;
-        }
-        if (event.key === 'ArrowRight' && carX < canvas.width - carWidth) {
-            carX += carSpeed;
-        }
-    });
-
-    setInterval(generateObstacles, 2000);
-    update();
 </script>
 
 </body>
