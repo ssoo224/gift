@@ -68,16 +68,16 @@
 
 <div class="container" id="container">
     <h2>شوف هديتك من علوش</h2>
-    <button onclick="showGift()">اضغط هنا</button>
+    <button onclick="showGift()">دوس هنا</button>
 </div>
 
 <script>
     function showGift() {
         const gifts = [
-            { name: "نعال", icon: "👡" },
-            { name: "أكل", icon: "🍔" },
-            { name: "حب", icon: "❤️" },
-            { name: "إخوان", icon: "👬" }
+            { name: "نعال يا نعال ههههههههههههههه ههههههههههههههه ", icon: "👡" },
+            { name: "سم وزقنبوت ابو كرش", icon: "🍔" },
+            { name: "احبك", icon: "❤️" },
+            { name: "الحلو مال اني", icon: "👫🏻" }
         ];
 
         const randomGift = gifts[Math.floor(Math.random() * gifts.length)];
@@ -85,7 +85,7 @@
         // إفراغ الصفحة وعرض الهدية فقط مع زر العودة
         document.body.innerHTML = `
             <div class="gift">${randomGift.icon} ${randomGift.name}</div>
-            <button class="back-button" onclick="location.reload()">الرجوع إلى البداية</button>
+            <button class="back-button" onclick="location.reload()">ارجع</button>
         `;
     }
 </script>
